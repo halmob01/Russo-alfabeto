@@ -17,14 +17,27 @@ Imparare a **leggere testi russi veri**: manifesti del Novecento, poesie, prosa 
 - La grammatica (per esempio кошка → кошку) esiste solo nelle note e nessun esercizio la fa usare.
 - Dopo l'alfabeto non c'è un ponte verso testi veri.
 
+## Idea guida: ISKRA come il tuo Ørberg
+
+Il latino è già stato imparato con il **metodo "natura"** del *Lingua Latina per se illustrata* di Ørberg: si capisce a poco a poco dal contesto, senza tradurre ogni frase. Quel metodo funziona perché il testo è **costruito a gradini**: pochi vocaboli nuovi per capitolo, ripetuti subito, con aiuti vicini. Con testi reali non graduati non regge (torna la regola del 95% di parole note, vedi sotto).
+
+Quindi il compito centrale di ISKRA è **fornire i testi graduati**: una serie di schede brevi, a difficoltà crescente, che portano dall'alfabeto fino a frasi originali di autori russi. Gli esercizi non sono il centro: sostengono le schede.
+
+Differenze rispetto al latino:
+
+- All'inizio il significato si dà **in italiano, al tocco**: non c'è ancora abbastanza russo per spiegare russo con russo.
+- Servono spiegazioni brevi su ciò che il latino non ha: accento che cambia posto e aspetto verbale.
+- I casi si introducono come in Ørberg: prima si vedono in frasi chiare e solo dopo si dà l'etichetta.
+
 ## Principi
 
-1. **Leggere e capire subito.** Ogni testo deve poter essere compreso parola per parola, senza uscire dall'app.
-2. **Produrre invece di riconoscere.** Esercizi di completamento e scrittura nell'app, non scelte a occhio.
-3. **Tutto sempre aperto.** Nessuno sblocco: si entra in qualsiasi unità quando si vuole.
-4. **Ripasso mirato.** Una scheda che ripropone ciò che si sbaglia di più.
-5. **Audio facoltativo.** Resta un tasto "come si dice?" nelle schermate di lettura. Niente esercizi di ascolto né dettato.
-6. **Scrivere solo online.** Con la tastiera cirillica a schermo (o quella del telefono). Niente quaderno e foto.
+1. **Leggere e capire subito.** Ogni testo si capisce parola per parola, senza uscire dall'app.
+2. **Testi graduati.** Ogni scheda riusa parole già viste e ne aggiunge poche (3-5).
+3. **Produrre invece di riconoscere.** Esercizi di completamento e scrittura nell'app, non scelte a occhio.
+4. **Tutto sempre aperto.** Nessuno sblocco: si entra in qualsiasi scheda quando si vuole.
+5. **Ripasso mirato.** Ripropone le parole che si sbagliano di più.
+6. **Audio facoltativo.** Resta un tasto "come si dice?" nelle schermate di lettura. Niente esercizi di ascolto né dettato.
+7. **Scrivere solo online.** Con la tastiera cirillica a schermo (o quella del telefono). Niente quaderno e foto.
 
 ### Cosa dice la ricerca (e quanto è solido)
 
@@ -34,27 +47,35 @@ Imparare a **leggere testi russi veri**: manifesti del Novecento, poesie, prosa 
 
 Conseguenza pratica: Dostoevskij è oggi fuori scala. Serve una scala di testi, dagli slogan alle quartine fino a singole frasi di prosa.
 
-## Struttura dei contenuti
+## Disegno dell'app
 
-**Home = mappa.** Una lista di unità con uno stato calcolato dalle risposte (da iniziare, in corso, sicura) e un'indicazione "riprendi da qui" o "da ripassare". Non c'è nessun blocco.
+### La home è una mappa con due percorsi
 
-**Schema di ogni unità:**
+- **Alfabeto:** la rampa iniziale, 6 unità brevi (le lezioni attuali, ma con spiegazione ed esercizi dentro).
+- **Repertorio di vite russe:** il cuore. Schede brevi e indipendenti, ordinate per difficoltà.
+- **Ripasso** e **Le mie parole:** accessi fissi, sempre disponibili.
+
+Tutto aperto. Ogni elemento mostra uno stato calcolato dalle risposte (da iniziare, in corso, sicura) e la home suggerisce "riprendi da qui" o "da ripassare". Per le schede si può mostrare il livello come numero di parole nuove o, più avanti, come percentuale di parole già note.
+
+### Unità dell'alfabeto
 
 1. **Impara:** 3-5 lettere nuove con audio facoltativo, forma maiuscola e minuscola e una riga sul trucco per ricordarle.
-2. **Leggi con quello che sai:** parole vere che usano solo le lettere viste finora, con il significato subito disponibile.
+2. **Leggi con quello che sai:** parole vere che usano solo le lettere viste finora (РЕСТОРАН, МЕТРО, АПТЕКА appena possibile), con il significato subito disponibile.
 3. **Esercizi:** 5-8 domande che mescolano 2-3 tipi.
-4. **Mini-test:** serve a mostrare come si va, non a sbloccare.
-5. **Un frammento vero da leggere** (un cartello o uno slogan) interamente leggibile con le lettere imparate.
+4. **Un frammento vero** (un cartello o una parola da un'insegna) interamente leggibile con le lettere imparate.
 
-**Ordine suggerito (solo visivo):**
+### Scheda del repertorio
 
-1. Alfabeto in 6 unità (le lezioni attuali, ma con spiegazione ed esercizi dentro).
-2. Insegne e parole internazionali.
-3. Parole di tutti i giorni.
-4. Frasi (le attuali, collegate alle parole viste prima).
-5. Testi da leggere: slogan, quartine, frasi di prosa.
+1. **Leggi:** 3-6 frasi semplici in russo (di solito al passato), con tocco sulla parola per il significato e traduzione italiana nascosta dietro un tasto.
+2. **Completa:** esercizi sulle parole e sulle forme della scheda (parola, desinenza e lettera mancante, riordino, abbinamento).
+3. **La frase vera:** una frase originale dell'autore o un motto, come gradino verso i testi reali.
+4. **Parole nuove:** le 3-5 parole della scheda entrano in "Le mie parole" e nel Ripasso.
 
-**Scheda Ripasso:** pesca domande dalle unità in cui si sbaglia di più. È l'unico pezzo di ripetizione dilazionata previsto.
+### Dove vanno a finire le schede attuali
+
+- **Parole:** non esiste più come elenco separato. Le parole si incontrano nelle schede e si raccolgono in "Le mie parole".
+- **Frasi:** le 13 frasi attuali diventano le prime schede, di base (presentarsi, lavoro, animali, libri), con i loro esercizi.
+- **Quiz sui suoni:** resta, ma come uno dei tanti tipi di esercizio.
 
 ## Esercizi
 
@@ -69,50 +90,67 @@ Conseguenza pratica: Dostoevskij è oggi fuori scala. Serve una scala di testi, 
 
 - Cosa significa?: parola in cirillico e quattro significati, senza traslitterazione.
 - Insegna da decifrare: РЕСТОРАН, АПТЕКА, МЕТРО.
-- Testo con tocco sulla parola (vedi sotto).
+- Testo con tocco sulla parola (vedi schede).
 
 **Abbinare**
 
 - Coppie parola-significato: КОТ ↔ gatto, МИР ↔ mondo / pace.
 - Maiuscola e minuscola.
-- Suono → lettera (l'inverso del quiz attuale, come uno dei tanti tipi).
+- Suono → lettera (l'inverso del quiz attuale).
 
 **Scrivere (leggero)**
 
 - Copiare e traslitterare parole.
 - Completare con la tastiera a schermo.
 
-**Regole di controllo:** si accetta **е al posto di ё** (nei testi veri si scrive quasi sempre così) e si ignorano maiuscole e punteggiatura. Ogni unità non usa lo stesso tipo di esercizio per tutte le domande.
+**Regole di controllo:** si accetta **е al posto di ё** (nei testi veri si scrive quasi sempre così) e si ignorano maiuscole e punteggiatura. Nessuna scheda usa lo stesso tipo di esercizio per tutte le domande.
 
 **Esclusi:** esercizi di ascolto, dettato, scrittura su carta con foto.
 
-## Lettore di testi
+**Ripasso:** pesca domande dalle parole incontrate e sbagliate più spesso. È l'unico pezzo di ripetizione dilazionata previsto.
 
-Una piccola **biblioteca annotata a mano**: 10-15 testi brevi, nei quali per ogni parola sono scritti forma del testo, forma base, significato e accento. Niente server né dizionario nell'app: sono dati nella repo, come `src/data.mjs`.
+## Contenuti: un repertorio di vite russe
 
-Nell'app: testo in cirillico, tocco su una parola per vederne il significato, un tasto per la traduzione intera, un tasto audio facoltativo.
+Come **modello di forma e di spirito** si usano due libri di Paolo Nori: *Repertorio dei matti della letteratura russa* (voci brevissime e titolate, quasi aneddoti) e *I russi sono matti*. Sono solo un modello: schede brevi, autonome, sulle vite strane dei russi. **Non si citano né si riproducono passi.** I testi dell'app sono originali, scritti sui fatti, e la repo è pubblica.
 
-Esempio di formato per una frase già presente nell'app:
+**Prima scheda: Iskra**, il nome dell'app (il giornale fondato da Lenin e altri nel 1900). Il suo motto, se ricordo bene «Из искры возгорится пламя» («dalla scintilla divamperà la fiamma»), è una frase brevissima e memorabile con cui aprire il percorso. **Da verificare** la formulazione esatta e l'origine (probabilmente una risposta poetica dei decabristi a Puškin). Poi Lenin e l'esilio, Dostoevskij, Majakovskij, Gogol', Charms e altri.
+
+Perché funziona: dà un filo narrativo, le vite eccentriche si ricordano meglio e i verbi al passato si ripetono di continuo. Le schede sono indipendenti e se ne aggiunge una alla volta.
+
+**Prime schede proposte**, di difficoltà crescente: il motto di Iskra, una breve scheda su Lenin, una su Dostoevskij e un frammento di poesia o uno slogan di manifesto (Окна РОСТА o sovietici).
+
+Cautele:
+
+- I fatti storici devono essere semplici e ben noti, e controllati a campione prima di entrare nell'app.
+- Il tono è descrittivo, né celebrativo né polemico.
+- «Matti» si usa con ironia solo come titolo del percorso: nelle schede si resta precisi sui fatti.
+
+## Formato dei dati
+
+Come `src/data.mjs` oggi, i contenuti sono dati nella repo: niente server né dizionario nell'app. Per ogni parola sono scritti forma del testo, forma base, significato e accento. Esempio illustrativo (frasi non verificate):
 
 ```js
-{ id: 'leggo-un-libro',
-  ru: 'Я читаю книгу.',
-  it: 'Leggo un libro.',
-  parole: [
-    { f: 'Я',     base: 'я',      it: 'io' },
-    { f: 'читаю', base: 'читать', it: 'leggo', acc: 'чита́ю' },
-    { f: 'книгу', base: 'книга',  it: 'libro (complemento oggetto)', acc: 'кни́гу' }
-  ] }
+{ id: 'iskra',
+  titolo: 'Искра',
+  livello: 2,
+  frasi: [
+    { ru: 'Искра — это газета.',
+      it: '«Iskra» è un giornale.',
+      parole: [
+        { f: 'Искра',  base: 'искра',  it: 'scintilla; nome del giornale' },
+        { f: 'это',    base: 'это',    it: 'questo è' },
+        { f: 'газета', base: 'газета', it: 'giornale' }
+      ] }
+  ],
+  originale: { ru: '…', it: '…', fonte: '…' } }
 ```
 
-**Primi quattro testi proposti**, di difficoltà crescente: due slogan di manifesti (Окна РОСТА o sovietici), una quartina breve di poesia e la frase iniziale di un romanzo di Dostoevskij.
+I progressi (schede fatte, parole incontrate, errori) restano in `localStorage`.
 
-**Possibile estensione:** un indicatore di difficoltà ("conosci il 71% delle parole di questo testo"), calcolato sulle parole già incontrate. Il 95% diventa l'obiettivo per leggere con comodità.
+## Rischi e limiti
 
-**Rischi e limiti:**
-
-- Le glosse e gli accenti li scrivo io e possono contenere errori, soprattutto nella poesia. Per un uso personale si controlla a campione su Wiktionary.
-- La repo è pubblica e il sito si pubblica su GitHub Pages: ogni testo committato è pubblico. Per questo conviene mettere nella repo solo testi di pubblico dominio (da verificare per ciascun autore) oppure tenere i testi personali fuori dalla repo.
+- Le glosse, gli accenti e i fatti storici li scrivo io e possono contenere errori, soprattutto nella poesia. Per un uso personale si controlla a campione su Wiktionary e su fonti storiche.
+- La repo è pubblica e il sito si pubblica su GitHub Pages: ogni testo committato è pubblico. Nella repo vanno solo testi propri o di pubblico dominio (da verificare per ciascun autore). Testi di altri autori e libri restano fuori.
 
 ## Idee scartate o rimandate
 
@@ -126,20 +164,21 @@ Esempio di formato per una frase già presente nell'app:
 
 ## Piano di lavoro e dimensioni
 
-L'app oggi è un solo `index.html` (circa 22 KB) più `src/data.mjs`, senza build né dipendenze. Non è un progetto grande. Il costo maggiore non è il codice ma **scrivere i contenuti** (testi annotati ed esercizi). Non stimo ore.
+L'app oggi è un solo `index.html` (circa 22 KB) più `src/data.mjs`, senza build né dipendenze. Non è un progetto grande. Il costo maggiore non è il codice ma **scrivere i contenuti** (schede ed esercizi). Non stimo ore.
 
 | Fase | Contenuto | PR |
 |---|---|---|
 | 0 | Questo documento | 1 (solo documentale) |
-| 1 | Struttura a unità e mappa; esercizi di completamento e abbinamento sui contenuti esistenti | 1 |
-| 2 | Lettore con tocco sulla parola e 4 testi annotati | 1 |
-| 3 | Altri testi e unità, solo come dati | commit piccoli, anche in un'unica PR |
+| 1 | Home a mappa; alfabeto in unità con esercizi di completamento e abbinamento; le 13 frasi attuali trasformate in schede di base | 1 |
+| 2 | Percorso Repertorio: lettore con tocco sulla parola, prime 4-5 schede, Le mie parole e Ripasso | 1 |
+| 3 | Altre schede, solo come dati | commit piccoli, anche in un'unica PR |
 
 In tutto **3 PR di codice più quella documentale**. Le fasi 1 e 2 si possono unire se si preferisce una sola PR più grande.
 
 ## Domande aperte
 
-- Quali sono i primi quattro testi? Quali autori e quali manifesti?
-- Quante unità di alfabeto e di parole? Il quiz attuale viene sostituito o resta come un tipo tra gli altri?
+- Quali personaggi e quali episodi per le prime schede, oltre a Iskra, Lenin e Dostoevskij?
+- Quante unità di alfabeto? Il quiz sui suoni resta come un tipo tra gli altri?
 - I progressi restano in `localStorage` (da iOS va bene) oppure serve un backup esportabile?
 - Come si trattano gli accenti nei testi: sempre visibili o solo al tocco?
+- Per gli slogan e le poesie: quali testi di pubblico dominio e dove si trovano?
