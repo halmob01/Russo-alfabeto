@@ -31,7 +31,7 @@
 @media(max-width:680px){.phrase-keyboard{grid-template-columns:repeat(8,minmax(0,1fr))}.phrase-key{min-height:43px}.phrase-choice{font-size:11px}}
 </style></head><body><div class="shell"><header class="top"><div class="brand">RUSSO<span style="color:#b92823">.</span></div><div class="eyebrow">Impara a leggere il cirillico</div></header><section class="hero"><div><div class="eyebrow">33 lettere · 6 lezioni</div><h1>LEGGI<br>IL RUSSO.</h1><p>Un percorso essenziale: scopri le lettere, ascolta i suoni, mettiti alla prova e leggi le prime parole e scrivi semplici frasi. Senza account.</p></div><div class="art" aria-hidden="true">Я Ж Ф</div></section><nav class="nav" aria-label="Sezioni"><button class="tab active" data-view="letters">01 / LETTERE</button><button class="tab" data-view="quiz">02 / ESERCIZI</button><button class="tab" data-view="words">03 / PAROLE</button><button class="tab" data-view="phrases">04 / FRASI</button></nav><main id="app"></main><footer class="footer">Russo — Alfabeto · Funziona senza registrazione · <span id="audio-status">Caricamento voce russa…</span></footer></div>
 <script type="module">
-import { raw, words, phrases } from "./src/data.mjs";
+import { raw, words, phrases, letterAudioText } from "./src/data.mjs";
 import { createAudioPlayer } from "./src/audio-player.mjs";
 
 const letters=raw.map(([upper,lower,sound,tip])=>({upper,lower,sound,tip}));
@@ -43,7 +43,8 @@ const app=document.getElementById('app');
 function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function speakNative(t){
  if(!("speechSynthesis" in window)){alert("Voce non disponibile su questo dispositivo.");return}
- const u=new SpeechSynthesisUtterance(String(t));
+ const letter=String(t).trim().toLocaleUpperCase("ru-RU");
+ const u=new SpeechSynthesisUtterance(letterAudioText[letter] || String(t));
  u.lang="ru-RU";u.rate=.88;
  const voice=window.speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith("ru"));
  if(voice)u.voice=voice;
