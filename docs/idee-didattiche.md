@@ -111,7 +111,7 @@ Tutto aperto. Ogni elemento mostra uno stato calcolato dalle risposte (da inizia
 
 ## Contenuti: un repertorio di vite russe
 
-Come **modello di forma e di spirito** si usano due libri di Paolo Nori: *Repertorio dei matti della letteratura russa* (voci brevissime e titolate, quasi aneddoti) e *I russi sono matti*. Sono solo un modello: schede brevi, autonome, sulle vite strane dei russi. **Non si citano né si riproducono passi.** I testi dell'app sono originali, scritti sui fatti, e la repo è pubblica.
+Come **modello di forma e di spirito** si usano due libri di Paolo Nori: *Repertorio dei matti della letteratura russa* (voci brevissime e titolate, quasi aneddoti) e *I russi sono matti*. Sono solo un modello: schede brevi, autonome, sulle vite strane dei russi. **Non si citano né si riproducono passi.** I testi dell'app sono originali, scritti sui fatti e la repo è pubblica.
 
 **Prima scheda: Iskra**, il nome dell'app (il giornale fondato da Lenin e altri nel 1900). Il suo motto, se ricordo bene «Из искры возгорится пламя» («dalla scintilla divamperà la fiamma»), è una frase brevissima e memorabile con cui aprire il percorso. **Da verificare** la formulazione esatta e l'origine (probabilmente una risposta poetica dei decabristi a Puškin). Poi Lenin e l'esilio, Dostoevskij, Majakovskij, Gogol', Charms e altri.
 
@@ -121,8 +121,8 @@ Perché funziona: dà un filo narrativo, le vite eccentriche si ricordano meglio
 
 Cautele:
 
-- I fatti storici devono essere semplici e ben noti, e controllati a campione prima di entrare nell'app.
-- Il tono è descrittivo, né celebrativo né polemico.
+- I fatti storici devono essere semplici e ben noti e controllati a campione prima di entrare nell'app.
+- Il tono è descrittivo: né celebrativo né polemico.
 - «Matti» si usa con ironia solo come titolo del percorso: nelle schede si resta precisi sui fatti.
 
 ## Formato dei dati
