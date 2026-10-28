@@ -67,9 +67,28 @@ Tutto aperto. Ogni elemento mostra uno stato calcolato dalle risposte (da inizia
 ### Scheda del repertorio
 
 1. **Leggi:** 3-6 frasi semplici in russo (di solito al passato), con tocco sulla parola per il significato e traduzione italiana nascosta dietro un tasto.
-2. **Completa:** esercizi sulle parole e sulle forme della scheda (parola, desinenza e lettera mancante, riordino, abbinamento).
+2. **Completa:** esercizi sulle parole e sulle forme della scheda (parola, desinenza e lettera mancante, riordino, abbinamento) e una o due domande di comprensione in russo.
 3. **La frase vera:** una frase originale dell'autore o un motto, come gradino verso i testi reali.
 4. **Parole nuove:** le 3-5 parole della scheda entrano in "Le mie parole" e nel Ripasso.
+
+### Funzioni per il metodo natura
+
+Idee per rendere la lettura "alla Ørberg" più efficace in un'app. Sono ipotesi di progetto: non ho verificato che funzionino meglio di un testo con glosse semplici, quindi si provano su poche schede prima di estenderle.
+
+**Base (fase 2)**
+
+- **Tocco sulla parola** con significato e forma base. Per le parole nuove della scheda il tocco mostra anche la forma come compare (*книгу*) e quella di base (*книга*).
+- **Traduzione italiana nascosta**, si apre con un tasto e solo dopo aver provato a capire.
+- **Domande di comprensione in russo** a fine scheda, con risposta a scelta tra parole del testo. In Ørberg si capisce rispondendo a domande sul testo nella lingua stessa. Usano solo parole già viste.
+
+**Più avanti (fase 3)**
+
+- **Indovina prima di sapere.** Alla prima lettura una parola ignota non mostra subito la glossa: chiede «che cosa pensi che voglia dire?» con due o tre ipotesi, poi rivela la risposta. Inferire dal contesto è la parte attiva del metodo.
+- **Rilettura progressiva.** Lo stesso testo si rilegge più volte e a ogni giro sparisce qualche parola già incontrata, da completare. È un modo per rileggere senza annoiarsi e rafforza le parole viste.
+- **Più livelli dello stesso episodio.** Lo stesso aneddoto in due o tre versioni a lessico crescente (frasi corte e semplici, poi più ricche, poi la frase originale). Si sale di livello restando nella stessa storia.
+- **Indicatore di difficoltà.** Prima di leggere si legge «conosci il 71% delle parole di questa scheda», calcolato sulle parole già incontrate. Il 95% è l'obiettivo per leggere con comodità.
+- **Desinenze evidenziate.** Nelle forme dei casi la desinenza è colorata e un tocco dice quale caso è e perché. Prima si vede, poi si nomina.
+- **Aiuti visivi.** Una piccola immagine (ad esempio un manifesto di pubblico dominio) accanto allo slogan, come nei libri di Ørberg: si capisce anche dal disegno.
 
 ### Dove vanno a finire le schede attuali
 
@@ -106,6 +125,20 @@ Tutto aperto. Ogni elemento mostra uno stato calcolato dalle risposte (da inizia
 **Regole di controllo:** si accetta **е al posto di ё** (nei testi veri si scrive quasi sempre così) e si ignorano maiuscole e punteggiatura. Nessuna scheda usa lo stesso tipo di esercizio per tutte le domande.
 
 **Esclusi:** esercizi di ascolto, dettato, scrittura su carta con foto.
+
+### Varietà: quali esercizi dove
+
+| Livello | Tipi di esercizio |
+|---|---|
+| Base (alfabeto e prime schede) | Abbinare coppie, «cosa significa?», lettera mancante, riordino di sillabe, copiare una parola |
+| Intermedio | Parola mancante con opzioni, riordino di frase (con ordini accettati), abbinare frase e traduzione, domanda di comprensione |
+| Avanzato | Desinenza mancante scrivendo, parola mancante senza opzioni, rilettura progressiva, traslitterare |
+
+Regole di rotazione:
+
+- Nessun tipo compare due volte di fila nella stessa sessione.
+- Ogni scheda ha almeno un esercizio di lettura, uno di completamento e uno su parole di schede precedenti (richiamo).
+- Il Ripasso mescola i tipi invece di ripetere quello in cui si è sbagliato.
 
 **Ripasso:** pesca domande dalle parole incontrate e sbagliate più spesso. È l'unico pezzo di ripetizione dilazionata previsto.
 
@@ -158,7 +191,9 @@ Come `src/data.mjs` oggi, i contenuti sono dati nella repo: niente server né di
         { f: 'газета', base: 'газета', it: 'giornale' }
       ] }
   ],
-  originale: { ru: '…', it: '…', fonte: '…' } }
+  domande: [ /* comprensione in russo: consegna, opzioni, risposta, perché */ ],
+  originale: { ru: '…', it: '…', fonte: '…' },
+  stato: 'non verificabile' }   // verificata | non verificabile | da correggere
 ```
 
 I progressi (schede fatte, parole incontrate, errori) restano in `localStorage`.
@@ -186,8 +221,8 @@ L'app oggi è un solo `index.html` (circa 22 KB) più `src/data.mjs`, senza buil
 |---|---|---|
 | 0 | Questo documento | 1 (solo documentale) |
 | 1 | Home a mappa; alfabeto in unità con esercizi di completamento e abbinamento; le 13 frasi attuali trasformate in schede di base | 1 |
-| 2 | Percorso Repertorio: lettore con tocco sulla parola, prime 4-5 schede, Le mie parole e Ripasso | 1 |
-| 3 | Altre schede, solo come dati | commit piccoli, anche in un'unica PR |
+| 2 | Percorso Repertorio: lettore con tocco sulla parola e traduzione nascosta, domande di comprensione, prime 4-5 schede, Le mie parole e Ripasso | 1 |
+| 3 | Altre schede come dati; funzioni avanzate del metodo natura (indovina prima, rilettura progressiva, livelli, indicatore, desinenze) provate su poche schede | commit piccoli, anche in un'unica PR |
 
 In tutto **3 PR di codice più quella documentale**. Le fasi 1 e 2 si possono unire se si preferisce una sola PR più grande.
 
