@@ -17,3 +17,6 @@ export const phrases=[
 {ru:'Я учу русский язык.',latin:'Ja učú rússkij jazýk',it:'Studio la lingua russa.',group:3,short:'Studio il russo',note:'Учу = studio/imparo; русский язык = lingua russa.'},
 {ru:'Я люблю книги.',latin:'Ja ljubljú knígi',it:'Amo i libri.',group:3,short:'Amo i libri',note:'Люблю = amo/mi piace molto. Книги qui significa «libri», plurale.'}
 ];
+
+// Nomi delle lettere in russo: non presentare il nome (эм) come fonema isolato /m/.
+export const letterAudioText=Object.fromEntries(raw.map(([upper],i)=>[upper, ["а","о","эм","тэ","ка","е","эн","эр","эс","вэ","у","бэ","гэ","дэ","эль","пэ","и","эф","зэ","жэ","че","ша","ща","цэ","ха","ы","э","ю","я","ё","и краткое","мягкий знак","твёрдый знак"][i]]));
