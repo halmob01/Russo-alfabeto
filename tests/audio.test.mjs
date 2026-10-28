@@ -67,3 +67,14 @@ test("invalid manifests preserve the browser fallback",async()=>{
   assert.equal(app.play("да"),"device");
   assert.deepEqual(fallback,["да"]);
 });
+
+
+test("ISKRA branding is visible and original navigation remains intact",()=>{
+  const html=readFileSync(new URL("../index.html",import.meta.url),"utf-8");
+  assert.match(html,/<title>ISKRA — Impara il russo<\/title>/);
+  assert.match(html,/<div class="brand">ISKRA/);
+  assert.match(html,/class="iskra-wordmark" lang="ru">ИСКРА/);
+  for(const section of ["letters","quiz","words","phrases"]){
+    assert.ok(html.includes('data-view="'+section+'"'),section);
+  }
+});
