@@ -178,10 +178,10 @@ Perché funziona: dà un filo narrativo, le vite eccentriche si ricordano meglio
 6. **Tolstoj in fuga.** A 82 anni lasciò casa e morì in una stazione. *Verificare* luogo e data.
 7. **Puškin e il duello.** Morì dopo un duello nel 1837. *Verificare* i dettagli.
 8. **Lenin in esilio.** L'esilio in Siberia e poi l'estero, dove si stampava Iskra. *Verificare* date e luoghi.
-9. **Dostoevskij e la finta esecuzione.** Condannato a morte nel 1849 e graziato all'ultimo momento, poi il carcere in Siberia. Tema duro: tono sobrio. *Verificare* tutto.
+9. **Dostoevskij e la finta esecuzione.** Condannato a morte nel 1849 e graziato all'ultimo momento, poi il carcere in Siberia. Tema duro. *Verificare* tutto.
 10. **Il corpo di Lenin in guerra.** La salma conservata fu spostata lontano da Mosca durante la guerra. *Da controllare:* il libro di Nori indica una città e io ricordo un'altra (Tjumen). Va risolto su una fonte storica prima di scrivere la scheda.
 
-Esclusi di proposito gli aneddoti volgari o troppo crudi: per imparare la lingua conviene un tono sobrio.
+Gli aneddoti volgari o crudi **non sono esclusi**: l'app è per uso personale e non per studenti. Valgono le regole di tutte le schede: fatti controllabili e frasi originali, mai passi dai libri.
 
 Cautele:
 
