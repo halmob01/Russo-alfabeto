@@ -109,6 +109,22 @@ Tutto aperto. Ogni elemento mostra uno stato calcolato dalle risposte (da inizia
 
 **Ripasso:** pesca domande dalle parole incontrate e sbagliate più spesso. È l'unico pezzo di ripetizione dilazionata previsto.
 
+### Qualità degli esercizi: errori classici da evitare
+
+Ricavato dalla skill `verifiche-didattiche` (repo `laika`, `.agents/skills/verifiche-didattiche`), applicato agli esercizi di ISKRA. Sono gli errori tipici di quiz scritti da un LLM (o di fretta).
+
+1. **Risposta corretta sempre più lunga.** Confrontare la lunghezza della corretta con la più lunga tra le errate. Il rapporto 0,85-1,15 è un indicatore di revisione e non una legge: non si altera la verità per pareggiare i caratteri.
+2. **Posizione della corretta troppo concentrata.** Controllare la posizione dopo il mescolamento mostrato nell'app e non nei dati. Con meno di 8 domande la distribuzione è solo indicativa. Il quiz attuale mescola con `sort(() => Math.random() - .5)`, che non è un mescolamento uniforme: va sostituito con Fisher-Yates.
+3. **Indizi involontari.** Registro o dettaglio diverso nella corretta, assoluti («sempre», «mai») solo negli errati, grammatica dell'enunciato compatibile con una sola opzione. Nei completamenti con desinenza, tutte le opzioni devono sembrare forme plausibili della stessa parola.
+4. **Distrattori assurdi.** Gli errati devono riflettere confusioni vere: per le lettere i falsi amici (Н/N, Р/P, С/C, В/B, У/Y, Х/X), per i casi кошка/кошку/кошки.
+5. **Ripetizioni.** Stessa consegna o stesso insieme di opzioni in domande diverse, domande che cambiano solo la parola. Variare l'operazione richiesta e non solo il contenuto.
+6. **Più risposte valide.** Il russo ha l'ordine delle parole libero: «Я работаю в школе» e «В школе я работаю» sono entrambe corrette. Nel riordino e nel completamento si definiscono le varianti accettate (ё/е, maiuscole, spazi, ordini equivalenti). Il controllo attuale, un confronto esatto con una sola frase, rifiuta risposte giuste.
+7. **Chiedere ciò che non è stato insegnato.** Ogni domanda usa solo lettere e parole già incontrate nelle schede (ancora il criterio del 95%). Una piccola matrice obiettivi → evidenze → esercizi evita di valutare cose mai viste e di duplicare lo stesso obiettivo.
+8. **Spiegazioni povere.** Il feedback dice **perché** («кошку perché è il complemento oggetto») e non solo «sbagliato» o la risposta giusta. Non si copia la spiegazione nella risposta.
+9. **Dichiarare più di quanto si è verificato.** Gli esercizi generati da un LLM possono contenere errori di accento, di caso o di aspetto verbale. Ogni scheda ha uno stato: *verificata* (controllata su Wiktionary o simili), *non verificabile* o *da correggere*. Un controllo automatico strutturale non sostituisce la revisione umana.
+
+**Controllo automatico previsto (fase 1):** un piccolo test Node (la repo ha già `tests/`) che legge i dati degli esercizi e segnala duplicati, chiave assente tra le opzioni, rapporto di lunghezza, posizione della corretta dopo il mescolamento e varianti accettate mancanti. Severità: bloccante, da correggere, da rivedere, non verificabile. Dove stia la skill originale e come funzioni l'auditor Python è descritto nella repo `laika`.
+
 ## Contenuti: un repertorio di vite russe
 
 Come **modello di forma e di spirito** si usano due libri di Paolo Nori: *Repertorio dei matti della letteratura russa* (voci brevissime e titolate, quasi aneddoti) e *I russi sono matti*. Sono solo un modello: schede brevi, autonome, sulle vite strane dei russi. **Non si citano né si riproducono passi.** I testi dell'app sono originali, scritti sui fatti e la repo è pubblica.
