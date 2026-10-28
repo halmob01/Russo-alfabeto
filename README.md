@@ -44,3 +44,13 @@ Il controllo del numero di file non certifica la correttezza della pronuncia: pe
 **Fonti e licenze:** modello [rhasspy/piper-voices — denis medium](https://huggingface.co/rhasspy/piper-voices/tree/main/ru/ru_RU/denis/medium); [MODEL_CARD](https://huggingface.co/rhasspy/piper-voices/blob/main/ru/ru_RU/denis/medium/MODEL_CARD) (dataset dichiarato CC0, modello derivato da lessac). Le condizioni relative ai pesi derivati vanno considerate separatamente per riusi commerciali. La dipendenza Piper è eseguita solo durante la build.
 
 Test locali: `node --test tests/*.test.mjs`, quindi `node scripts/audio-inventory.mjs`. La produzione dei file richiede Piper, il modello ONNX e FFmpeg.
+
+## Sintesi vocale neurale Piper
+
+- Modello: [ru_RU-denis-medium](https://huggingface.co/rhasspy/piper-voices/tree/main/ru/ru_RU/denis/medium), repository rhasspy/piper-voices (MIT), dataset indicato nella model card come CC0. Il modello ha SHA-256 verificato nella pipeline.
+- Inventario condiviso: `src/data.mjs` → `scripts/voice-inventory.mjs` → `audio/inventory.json`. Include 33 nomi di lettere, 16 parole, 13 frasi.
+- Generazione: GitHub Actions usa Piper e FFmpeg, produce `audio/generated/manifest.json` e MP3 hashati. Il modello da 63 MB non è caricato sul telefono.
+- Riproduzione: `src/audio-player.mjs` carica il manifest e preferisce l'MP3; in caso di assenza o errore torna alla voce del browser.
+- Pubblicazione: **Settings → Pages → Build and deployment → Source: GitHub Actions**. La PR testa gli audio ma non pubblica; il merge su `main` avvia la distribuzione.
+- **Revisione necessaria**: ascoltare sul telefono i nomi delle lettere, prestiti e nomi propri; la prosodia della voce sintetica non è garantita.
+- Test locali: `node scripts/voice-inventory.mjs && node --test tests/*.test.mjs`. La generazione MP3 richiede il modello ONNX e il comando `python scripts/build-neural-audio.py --model ... --config ...`.

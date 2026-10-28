@@ -1,9 +1,16 @@
-name: Russian neural audio and GitHub Pages
+name: Publish Russian app with Piper audio
 
 on:
-  pull_request:
   push:
     branches: [main]
+  pull_request:
+    paths:
+      - "index.html"
+      - "src/**"
+      - "scripts/**"
+      - "tests/**"
+      - "requirements-audio.txt"
+      - ".github/workflows/pages.yml"
   workflow_dispatch:
 
 permissions:
@@ -12,7 +19,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: russian-neural-pages
+  group: russian-pages
   cancel-in-progress: false
 
 jobs:
@@ -20,59 +27,67 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 45
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: "22"
-      - name: Setup Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Test curriculum and playback logic
+          cache: pip
+          cache-dependency-path: requirements-audio.txt
+      - name: Build inventory from the app curriculum
+        run: node scripts/voice-inventory.mjs
+      - name: Verify application and audio inventory
         run: node --test tests/*.test.mjs
-      - name: Generate audio inventory
-        run: node scripts/audio-inventory.mjs
+      - name: Restore generated audio cache
+        uses: actions/cache@v4
+        with:
+          path: audio/generated
+          key: piper-ru-denis-v1-${{ hashFiles('audio/inventory.json', 'scripts/build-neural-audio.py') }}
       - name: Install Piper and FFmpeg
         run: |
+          python -m pip install --upgrade pip
           python -m pip install -r requirements-audio.txt
-          python -c "import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())"
-      - name: Download verified Russian Denis model
+      - name: Download and verify Russian Piper Denis voice
         shell: bash
         run: |
+          set -euo pipefail
           mkdir -p .voice
           BASE="https://huggingface.co/rhasspy/piper-voices/resolve/main/ru/ru_RU/denis/medium"
           curl -fLsS --retry 4 --retry-delay 3 "$BASE/ru_RU-denis-medium.onnx" -o .voice/ru_RU-denis-medium.onnx
           curl -fLsS --retry 4 --retry-delay 3 "$BASE/ru_RU-denis-medium.onnx.json" -o .voice/ru_RU-denis-medium.onnx.json
           echo "15fab56e11a097858ee115545d0f697fc2a316c41a291a5362349fb870411b0a  .voice/ru_RU-denis-medium.onnx" | sha256sum -c -
-      - name: Generate and validate every Russian audio clip
+      - name: Synthesize neural Russian MP3s
         run: |
-          python scripts/build-russian-audio.py \
+          python scripts/build-neural-audio.py \
             --model .voice/ru_RU-denis-medium.onnx \
             --config .voice/ru_RU-denis-medium.onnx.json
+      - name: Validate generated audio files
+        run: |
           python - <<'PY'
           import json
           from pathlib import Path
-          inventory=json.loads(Path("audio/inventory.json").read_text())
-          manifest=json.loads(Path("audio/generated/manifest.json").read_text())
-          assert manifest["schema"]==1
-          assert manifest["voice"]=="ru_RU-denis-medium"
-          assert len(manifest["clips"])==len(inventory["entries"])==62
-          assert all((Path("audio/generated")/name).stat().st_size>300 for name in manifest["clips"].values())
-          print("Verified:",len(manifest["clips"]),"neural MP3 clips")
+          inventory=json.loads(Path("audio/inventory.json").read_text(encoding="utf-8"))
+          manifest=json.loads(Path("audio/generated/manifest.json").read_text(encoding="utf-8"))
+          expected={entry["key"] for entry in inventory["entries"]}
+          actual=set(manifest["clips"])
+          assert actual==expected,(expected-actual,actual-expected)
+          assert len(actual)==62,f"Expected 62 audio files, got {len(actual)}"
+          assert all((Path("audio/generated")/file).stat().st_size>300 for file in manifest["clips"].values())
+          print(f"Verified {len(actual)} neural audio clips")
           PY
-      - name: Package website with audio
+      - name: Stage static site for Pages
         run: |
-          mkdir -p _site/src _site/audio/generated
+          mkdir -p _site/src _site/audio
           cp index.html _site/
           cp src/*.mjs _site/src/
-          cp audio/generated/*.mp3 audio/generated/manifest.json _site/audio/generated/
+          cp -r audio/generated _site/audio/
           touch _site/.nojekyll
       - name: Configure Pages
         if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
-      - name: Upload Pages bundle
+      - name: Upload Pages artifact
         if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
@@ -86,6 +101,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy Pages site
+      - name: Deploy Pages
         id: deployment
         uses: actions/deploy-pages@v4
