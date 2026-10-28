@@ -166,7 +166,7 @@ Come **modello di forma e di spirito** si usano due libri di Paolo Nori: *Repert
 
 Perché funziona: dà un filo narrativo, le vite eccentriche si ricordano meglio e i verbi al passato si ripetono di continuo. Le schede sono indipendenti e se ne aggiunge una alla volta.
 
-**Cosa si prende dai libri di Nori, e cosa no.** Ho letto a campione una decina di voci del *Repertorio*. Si prende solo la forma: ogni voce è un aneddoto di 3-6 frasi con un titolo breve e un attacco quasi sempre uguale («Uno, che si chiamava…»). Quella formula ripetuta è un buon modello per la lingua semplice delle schede (in russo «Его звали…»). I temi sono scelti da fatti noti e controllabili: nessuna frase e nessun aneddoto specifico dei libri entra nel testo dell'app.
+**Cosa si prende dai libri di Nori e cosa no.** Ho letto a campione otto voci del *Repertorio*. Si prende solo la forma: ogni voce è un aneddoto di 3-6 frasi con un titolo breve e un attacco quasi sempre uguale. Quella formula ripetuta è un buon modello per la lingua semplice delle schede: ogni scheda può aprirsi con la stessa struttura («Его звали…» in russo). I temi sono scelti da fatti noti e controllabili: nessuna frase e nessun aneddoto specifico dei libri entra nel testo dell'app.
 
 **Dieci schede proposte**, dalla più semplice alla più difficile. Per ognuna il tema e ciò che va verificato prima di scriverla.
 
