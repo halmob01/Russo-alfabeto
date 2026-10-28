@@ -166,7 +166,22 @@ Come **modello di forma e di spirito** si usano due libri di Paolo Nori: *Repert
 
 Perché funziona: dà un filo narrativo, le vite eccentriche si ricordano meglio e i verbi al passato si ripetono di continuo. Le schede sono indipendenti e se ne aggiunge una alla volta.
 
-**Prime schede proposte**, di difficoltà crescente: il motto di Iskra, una breve scheda su Lenin, una su Dostoevskij e un frammento di poesia o uno slogan di manifesto (Окна РОСТА o sovietici).
+**Cosa si prende dai libri di Nori, e cosa no.** Ho letto a campione una decina di voci del *Repertorio*. Si prende solo la forma: ogni voce è un aneddoto di 3-6 frasi con un titolo breve e un attacco quasi sempre uguale («Uno, che si chiamava…»). Quella formula ripetuta è un buon modello per la lingua semplice delle schede (in russo «Его звали…»). I temi sono scelti da fatti noti e controllabili: nessuna frase e nessun aneddoto specifico dei libri entra nel testo dell'app.
+
+**Dieci schede proposte**, dalla più semplice alla più difficile. Per ognuna il tema e ciò che va verificato prima di scriverla.
+
+1. **Iskra, la scintilla.** Il nome dell'app e il suo motto: una frase brevissima. *Verificare* formulazione e origine del motto.
+2. **Il naso di Gogol'.** Gogol' scrisse un racconto intitolato «Il naso». Parole concrete (naso, racconto, scrisse). *Verificare* l'anno.
+3. **Charms e il nome d'arte.** Si chiamava Juvačëv e scelse il nome Charms. Forma «si chiamava». *Verificare* i dettagli biografici.
+4. **Majakovskij e i manifesti.** Le «Окна РОСТА»: immagini con slogan in rima. La frase vera è uno slogan breve. *Verificare* il testo dello slogan e i diritti dell'immagine.
+5. **Dostoevskij e la roulette.** Giocava d'azzardo e perdeva. Scrisse in fretta *Il giocatore* per pagare i debiti. *Verificare* date e circostanze.
+6. **Tolstoj in fuga.** A 82 anni lasciò casa e morì in una stazione. *Verificare* luogo e data.
+7. **Puškin e il duello.** Morì dopo un duello nel 1837. *Verificare* i dettagli.
+8. **Lenin in esilio.** L'esilio in Siberia e poi l'estero, dove si stampava Iskra. *Verificare* date e luoghi.
+9. **Dostoevskij e la finta esecuzione.** Condannato a morte nel 1849 e graziato all'ultimo momento, poi il carcere in Siberia. Tema duro: tono sobrio. *Verificare* tutto.
+10. **Il corpo di Lenin in guerra.** La salma conservata fu spostata lontano da Mosca durante la guerra. *Da controllare:* il libro di Nori indica una città e io ricordo un'altra (Tjumen). Va risolto su una fonte storica prima di scrivere la scheda.
+
+Esclusi di proposito gli aneddoti volgari o troppo crudi: per imparare la lingua conviene un tono sobrio.
 
 Cautele:
 
@@ -228,7 +243,7 @@ In tutto **3 PR di codice più quella documentale**. Le fasi 1 e 2 si possono un
 
 ## Domande aperte
 
-- Quali personaggi e quali episodi per le prime schede, oltre a Iskra, Lenin e Dostoevskij?
+- Le dieci schede proposte vanno bene o se ne cambiano alcune (altri autori da aggiungere?)?
 - Quante unità di alfabeto? Il quiz sui suoni resta come un tipo tra gli altri?
 - I progressi restano in `localStorage` (da iOS va bene) oppure serve un backup esportabile?
 - Come si trattano gli accenti nei testi: sempre visibili o solo al tocco?
