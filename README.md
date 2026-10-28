@@ -1,6 +1,6 @@
-# Russo — Alfabeto
+# ISKRA / ИСКРА
 
-Una web app gratuita, mobile-first, per imparare a leggere il cirillico e scrivere le prime frasi russe.
+**ISKRA (ИСКРА, «scintilla»)** è una web app gratuita, mobile-first, per imparare a leggere il cirillico e scrivere le prime frasi russe.
 
 ## Contenuti attuali
 
@@ -20,6 +20,10 @@ Apri `index.html` tramite un server statico (per esempio `python3 -m http.server
 È presente `.github/workflows/pages.yml`, che pubblica l'app con GitHub Actions quando GitHub Pages è abilitato. In **Settings → Pages → Build and deployment**, seleziona **GitHub Actions** come origine, se non è già impostata. Controlla **Actions** per lo stato della pubblicazione.
 
 Indirizzo previsto, **da verificare dopo il deploy**: https://halmob01.github.io/Russo-alfabeto/
+
+## Identità
+
+Il nome pubblico dell'app è **ISKRA / ИСКРА**. In pagina, la parola latina ISKRA usa Anton nel marchio, mentre il titolo cirillico ИСКРА usa Manrope 800, perché la versione di Anton distribuita da Google Fonts non garantisce ancora il supporto cirillico. Palette e layout restano invariati. La repository e l'URL GitHub Pages rimangono `Russo-alfabeto` per preservare i collegamenti già condivisi.
 
 ## Scelte tecniche
 
