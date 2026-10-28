@@ -44,7 +44,7 @@ function escapeHTML(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':
 function speakNative(t){
  if(!("speechSynthesis" in window)){alert("Voce non disponibile su questo dispositivo.");return}
  const letter=String(t).trim().toLocaleUpperCase("ru-RU");
- const u=new SpeechSynthesisUtterance(letterAudioText[letter] || String(t));
+ const u=new SpeechSynthesisUtterance(letterAudioText[letter] || String(t).toLocaleLowerCase("ru-RU"));
  u.lang="ru-RU";u.rate=.88;
  const voice=window.speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith("ru"));
  if(voice)u.voice=voice;
