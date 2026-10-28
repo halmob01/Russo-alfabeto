@@ -1,0 +1,5 @@
+.voice/
+audio/generated/
+audio/inventory.json
+_site/
+__pycache__/

@@ -20,3 +20,6 @@ export const phrases=[
 
 // Nomi delle lettere in russo: non presentare il nome (эм) come fonema isolato /m/.
 export const letterAudioText=Object.fromEntries(raw.map(([upper],i)=>[upper, ["а","о","эм","тэ","ка","е","эн","эр","эс","вэ","у","бэ","гэ","дэ","эль","пэ","и","эф","зэ","жэ","че","ша","ща","цэ","ха","ы","э","ю","я","ё","и краткое","мягкий знак","твёрдый знак"][i]]));
+
+// I nomi delle lettere, non i fonemi: una consonante isolata non equivale al suo nome.
+export const letterNames=["а","о","эм","тэ","ка","е","эн","эр","эс","вэ","у","бэ","гэ","дэ","эль","пэ","и","эф","зэ","жэ","че","ша","ща","цэ","ха","ы","э","ю","я","ё","и краткое","мягкий знак","твёрдый знак"];
