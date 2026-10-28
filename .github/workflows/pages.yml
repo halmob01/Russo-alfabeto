@@ -1,30 +1,91 @@
-name: Publish Russian alphabet app
+name: Russian neural audio and GitHub Pages
+
 on:
+  pull_request:
   push:
     branches: [main]
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
-  group: github-pages
-  cancel-in-progress: true
+  group: russian-neural-pages
+  cancel-in-progress: false
+
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Test curriculum and playback logic
+        run: node --test tests/*.test.mjs
+      - name: Generate audio inventory
+        run: node scripts/audio-inventory.mjs
+      - name: Install Piper and FFmpeg
+        run: |
+          python -m pip install -r requirements-audio.txt
+          python -c "import imageio_ffmpeg; print(imageio_ffmpeg.get_ffmpeg_exe())"
+      - name: Download verified Russian Denis model
+        shell: bash
+        run: |
+          mkdir -p .voice
+          BASE="https://huggingface.co/rhasspy/piper-voices/resolve/main/ru/ru_RU/denis/medium"
+          curl -fLsS --retry 4 --retry-delay 3 "$BASE/ru_RU-denis-medium.onnx" -o .voice/ru_RU-denis-medium.onnx
+          curl -fLsS --retry 4 --retry-delay 3 "$BASE/ru_RU-denis-medium.onnx.json" -o .voice/ru_RU-denis-medium.onnx.json
+          echo "15fab56e11a097858ee115545d0f697fc2a316c41a291a5362349fb870411b0a  .voice/ru_RU-denis-medium.onnx" | sha256sum -c -
+      - name: Generate and validate every Russian audio clip
+        run: |
+          python scripts/build-russian-audio.py \
+            --model .voice/ru_RU-denis-medium.onnx \
+            --config .voice/ru_RU-denis-medium.onnx.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          inventory=json.loads(Path("audio/inventory.json").read_text())
+          manifest=json.loads(Path("audio/generated/manifest.json").read_text())
+          assert manifest["schema"]==1
+          assert manifest["voice"]=="ru_RU-denis-medium"
+          assert len(manifest["clips"])==len(inventory["entries"])==62
+          assert all((Path("audio/generated")/name).stat().st_size>300 for name in manifest["clips"].values())
+          print("Verified:",len(manifest["clips"]),"neural MP3 clips")
+          PY
+      - name: Package website with audio
+        run: |
+          mkdir -p _site/src _site/audio/generated
+          cp index.html _site/
+          cp src/*.mjs _site/src/
+          cp audio/generated/*.mp3 audio/generated/manifest.json _site/audio/generated/
+          touch _site/.nojekyll
       - name: Configure Pages
+        if: github.event_name != 'pull_request'
         uses: actions/configure-pages@v5
-      - name: Upload static site
+      - name: Upload Pages bundle
+        if: github.event_name != 'pull_request'
         uses: actions/upload-pages-artifact@v3
         with:
-          path: .
-      - name: Deploy
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy Pages site
         id: deployment
         uses: actions/deploy-pages@v4
