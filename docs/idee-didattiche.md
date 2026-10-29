@@ -248,3 +248,108 @@ In tutto **3 PR di codice più quella documentale**. Le fasi 1 e 2 si possono un
 - I progressi restano in `localStorage` (da iOS va bene) oppure serve un backup esportabile?
 - Come si trattano gli accenti nei testi: sempre visibili o solo al tocco?
 - Per gli slogan e le poesie: quali testi di pubblico dominio e dove si trovano?
+
+---
+
+## Spunti integrativi per l'architettura (revisione 29 ottobre 2026)
+
+> **Stato: proposte da valutare, non decisioni già approvate.** Queste note integrano il piano precedente senza sostituirlo né ampliare gli obiettivi dell'app. Priorità: permettere a ISKRA di **insegnare a leggere autonomamente**, non soltanto presentare testi belli o registrare clic. Non richiedono backend, API di IA o un dizionario automatico.
+
+### A. Progressione: distinguere repertorio narrativo e curricolo linguistico — **priorità alta**
+
+Le dieci storie possono restare autonome e tutte accessibili, ma **l'ordine suggerito** deve seguire un curricolo esplicito. Il vincolo «3–5 parole nuove» non è sufficiente: anche una frase con parole note può introdurre una costruzione non ancora spiegata.
+
+Predisporre una piccola **matrice delle dipendenze didattiche**, separata dai testi:
+
+- Per ogni scheda: lettere richieste, lemmi nuovi, lemmi ripresi, forme flesse nuove, una o due strutture sintattiche/grammaticali introdotte, prerequisiti consigliati e punto di riuso nelle schede successive.
+- Per ciascun fenomeno (per esempio nominativo → accusativo in `кошка/кошку`, oppure passato di un verbo): **primo incontro contestualizzato → nuova occorrenza → richiamo senza aiuto → riconoscimento in un frammento autentico**.
+- La progressione è un **ordine raccomandato**, non uno sblocco: l'utente può aprire qualsiasi storia.
+- Prima di estendere il repertorio, verificare sulle prime 3–4 schede che le parole e le strutture ritornino realmente. Tracciare il riuso è più importante che aumentare subito il numero di aneddoti.
+
+**Criterio di accettazione:** per ogni scheda è possibile rispondere a «che cosa introduce?», «che cosa riprende?» e «dove viene riutilizzato?». Una domanda non deve valutare contenuti mai incontrati o esplicitamente introdotti in quella scheda.
+
+### B. Dati: un lettore annotato, non un dizionario — **priorità alta**
+
+Prima di rifare la home, stabilire i contratti minimi tra **contenuti**, **lettore**, **esercizi**, **progressi** e **generazione audio Piper**. Non costruire un motore morfologico: per un piccolo corpus sono sufficienti annotazioni curate manualmente.
+
+Schema concettuale (illustrativo, non codice di produzione):
+
+```js
+// Lemma stabile, indipendente dalla forma che compare nella frase
+lexicon: {
+  "ru-koshka": { lemma: "кошка", it: "gatta", status: "da_verificare" }
+},
+// Scheda composta di frasi e occorrenze annotate
+cards: [{
+  id: "iskra-01",
+  recommendedAfter: [],
+  introduces: ["ru-iskra", "ru-gazeta"],
+  revisits: [],
+  targets: ["questa frase nominale"],
+  sentences: [{
+    id: "iskra-01-s1",
+    ru: "Искра — это газета.",
+    tokens: [
+      { surface: "Искра", lemmaId: "ru-iskra", gloss: "scintilla; titolo" },
+      { surface: "это", lemmaId: "ru-eto", gloss: "questo è" },
+      { surface: "газета", lemmaId: "ru-gazeta", gloss: "giornale" }
+    ]
+  }]
+}]
+```
+
+**Regole architetturali:**
+
+- Separare **lemma**, **forma attestata nel testo**, **significato contestuale**, **eventuale accento** e **nota grammaticale**; non dedurre il significato della forma soltanto dal lemma. Dove serve, registrare il caso o la funzione della forma flessa.
+- Dare identificatori **stabili** a schede, frasi, esercizi e lemmi. Le correzioni editoriali non devono cancellare i progressi.
+- Validare che le occorrenze annotate ricompongano fedelmente la frase mostrata (inclusi spazi e punteggiatura) e che ogni `lemmaId` esista. È preferibile una tokenizzazione esplicita a una suddivisione ingenua su `split(" ")`, che fallisce con apostrofi, segni e punteggiatura.
+- Riutilizzare i testi della stessa fonte di verità per il catalogo audio: **non duplicare** manualmente frasi tra schede, player e script Piper.
+- Iniziare con due o tre file/moduli piccoli (`lexicon`, `cards`, `progress`), senza introdurre framework, database o gerarchie premature.
+
+### C. Misurare l'apprendimento: «incontrato» non significa «conosciuto» — **priorità alta**
+
+Una parola mostrata o toccata non può essere classificata automaticamente come acquisita. Proposta di stati distinti, calcolati da **evidenze osservabili**:
+
+1. **Incontrata:** compare in una scheda aperta; non implica comprensione.
+2. **Riconosciuta con aiuto:** risposta corretta dopo glossa, suggerimento o traduzione.
+3. **Riconosciuta autonomamente:** risposta corretta in una prova senza aiuti, possibilmente in una frase diversa da quella originaria.
+
+Conservare eventi minimi in `localStorage`: ID della parola/scheda/esercizio, tentativo, correttezza, uso di aiuti e ultima prova. Evitare cronologie superflue e dati personali. Predisporre **versione dello schema e migrazione** per non perdere i progressi quando cambiano i contenuti; valutare successivamente un export/import JSON facoltativo.
+
+L'indicatore «conosci X% delle parole» dovrebbe restare **rimandato** finché non ci sono evidenze affidabili. Se introdotto, distinguere esplicitamente *parole già incontrate* e *parole riconosciute senza aiuto*, specificare se si contano **forme o lemmi** e non trattare il 95% come soglia universale di comprensione. Il dato lessicale, da solo, non misura la comprensione della sintassi o di un testo letterario.
+
+**Criterio di accettazione:** aprire dieci volte una scheda o usare dieci volte la glossa **non aumenta** artificialmente il numero di parole «sicure».
+
+### D. Scheda-pilota: Iskra come test dell'intera esperienza — **priorità alta**
+
+Realizzare **una scheda end-to-end prima della nuova home**. Il pilota è `Iskra / Искра`: 3–6 frasi graduate, glosse, almeno una struttura grammaticale osservabile, pochi esercizi di completamento e comprensione, ripasso e una **frase autentica finale**. Il verso «Из искры возгорится пламя» può essere il traguardo, **non un testo introduttivo da comprendere senza aiuti**: verificare prima formulazione, attribuzione e fonte.
+
+Verificare sul pilota quattro domande:
+
+- Capisco il testo con un numero ragionevole di glosse?
+- So riconoscere almeno una parola o struttura in un contesto **nuovo**, non solo ripeterla a memoria?
+- La stessa frase funziona con accenti, segni diacritici, nomi propri e audio Piper senza disallineamenti?
+- Sul telefono sono semplici **tocca una parola**, **torna al testo**, **mostra/nascondi traduzione** e **riprova**?
+
+Solo dopo la prova estendere la struttura alle altre schede. Il successo dei test strutturali non sostituisce il controllo linguistico e storico dei contenuti.
+
+### E. Revisionare il piano di sviluppo: PR piccole e reversibili — **priorità media**
+
+La fase 1 proposta sopra accorpa home, alfabeto, nuove attività e conversione delle frasi; è difficile da verificare e annullare. Una sequenza più controllabile, **da valutare al posto delle attuali tre PR monolitiche**, è:
+
+| Incremento | Output verificabile | Cosa resta fuori |
+|---|---|---|
+| **P1 — Fondazioni + pilota** | Schemi dati annotati, validatori, una scheda Iskra completa e tre esercizi differenti; prova su iPhone | Nuova home definitiva, altre nove vite |
+| **P2 — Percorso coerente** | Alfabeto in unità, riuso delle 13 frasi, prime schede biografiche, «Le mie parole» e progressi con migrazione | Funzioni avanzate di lettura |
+| **P3 — Lettura approfondita** | Ripasso mirato e sperimentazione *su poche schede* di rilettura progressiva, desinenze evidenziate e due livelli dello stesso episodio | Dizionario automatico, sistemi AI o sblocco forzato |
+
+**Test minimi per ogni incremento:** validità degli ID e dei riferimenti, progressi preservati, varianti ammesse nelle risposte (in particolare `ё/е` secondo l'esercizio e l'ordine delle parole quando semanticamente equivalente), assenza di indizi nelle opzioni, funzionamento su Safari iOS e compatibilità del build audio.
+
+### F. Confini da preservare — **vincoli, non nuove funzioni**
+
+- **Lettura al centro**; audio facoltativo come supporto, senza imporre esercizi di ascolto.
+- **Accesso libero** a tutte le schede: suggerimenti di percorso sì, blocchi no.
+- **Contenuti originali, fonti verificabili** e note editoriali esplicite; per frammenti autentici verificare anche i diritti.
+- **App statica, senza AI runtime né account**; non introdurre infrastruttura sproporzionata rispetto al corpus.
+
+**Decisione proposta:** usare questi punti come **checklist di revisione architetturale** prima di iniziare P1, non come una nuova lista di funzionalità da costruire tutte immediatamente. Il criterio prevalente resta la capacità di passare, gradualmente, da frasi graduate alla comprensione autonoma di frammenti russi autentici.
