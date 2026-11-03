@@ -58,7 +58,8 @@ jobs:
           manifest=json.loads(Path("audio/generated/manifest.json").read_text())
           assert manifest["schema"]==1
           assert manifest["voice"]=="ru_RU-denis-medium"
-          assert len(manifest["clips"])==len(inventory["entries"])==62
+          assert len(manifest["clips"])==len(inventory["entries"])
+          assert set(manifest["clips"])=={entry["key"] for entry in inventory["entries"]}
           assert all((Path("audio/generated")/name).stat().st_size>300 for name in manifest["clips"].values())
           print("Verified:",len(manifest["clips"]),"neural MP3 clips")
           PY
