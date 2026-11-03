@@ -3,14 +3,21 @@ import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {buildInventory} from "../scripts/audio-inventory.mjs";
 import {createAudioPlayer} from "../src/audio-player.mjs";
+import {cards} from "../src/reader-data.mjs";
 
-test("inventory covers all 33 letters, 16 words and 13 phrases without duplicates",()=>{
+test("inventory covers baseline and all new reader sentences without duplicates",()=>{
   const data=buildInventory();
-  assert.equal(data.entries.length,62);
+  assert.equal(data.entries.length,62+cards.reduce((n,c)=>n+c.sentences.length+1,0));
+  assert.equal(data.entries.filter(x=>x.kind==="reader").length,cards.reduce((n,c)=>n+c.sentences.length,0));
+  assert.equal(data.entries.filter(x=>x.kind==="authentic").length,cards.length);
   for(const [kind,n] of [["letter",33],["word",16],["phrase",13]]){
     assert.equal(data.entries.filter(x=>x.kind===kind).length,n);
   }
-  assert.equal(new Set(data.entries.map(x=>x.key)).size,62);
+  assert.equal(new Set(data.entries.map(x=>x.key)).size,data.entries.length);
+  for(const card of cards){
+    for(const sentence of card.sentences)assert.ok(data.entries.some(e=>e.key===sentence.ru.toLocaleUpperCase("ru-RU")));
+    assert.ok(data.entries.some(e=>e.key===card.original.ru.toLocaleUpperCase("ru-RU")));
+  }
   assert.equal(data.entries.find(x=>x.key==="М").text,"эм");
   assert.equal(data.entries.find(x=>x.key==="СССР").text,"эс эс эс эр");
 });
@@ -74,7 +81,7 @@ test("ISKRA branding is visible and original navigation remains intact",()=>{
   assert.match(html,/<title>ISKRA — Impara il russo<\/title>/);
   assert.match(html,/<div class="brand">ISKRA/);
   assert.match(html,/class="iskra-wordmark" lang="ru">ИСКРА/);
-  for(const section of ["letters","quiz","words","phrases"]){
+  for(const section of ["letters","quiz","words","phrases","reader"]){
     assert.ok(html.includes('data-view="'+section+'"'),section);
   }
 });
