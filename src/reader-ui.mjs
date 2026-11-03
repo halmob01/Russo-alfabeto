@@ -115,6 +115,24 @@ export function createReaderView({root,speak,storage=localStorage}){
         field.addEventListener("input",()=>ui.drafts[ex.id]=field.value);
         field.addEventListener("keydown",event=>{if(event.key==="Enter"){event.preventDefault();attempt(ex,field.value)}});
         item.append(field);
+        item.append(node("p","muted","Puoi usare la tastiera russa del telefono oppure quella qui sotto."));
+        const keyboard=node("div","phrase-keyboard");
+        keyboard.setAttribute("aria-label","Tastiera cirillica per la risposta");
+        const insertAtCaret=(value,remove=false)=>{
+          const start=field.selectionStart??field.value.length;
+          const end=field.selectionEnd??start;
+          const begin=remove&&start===end?Math.max(0,start-1):start;
+          field.value=field.value.slice(0,begin)+value+field.value.slice(end);
+          ui.drafts[ex.id]=field.value;
+          field.focus();
+          field.setSelectionRange(begin+value.length,begin+value.length);
+        };
+        for(const char of "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ"){
+          keyboard.append(button(char,()=>insertAtCaret(char.toLocaleLowerCase("ru-RU")),"phrase-key"));
+        }
+        keyboard.append(button("SPAZIO",()=>insertAtCaret(" "),"phrase-key wide"));
+        keyboard.append(button("CANCELLA",()=>insertAtCaret("",true),"phrase-key wide"));
+        item.append(keyboard);
         item.append(button("Controlla risposta",()=>attempt(ex,field.value)));
       }else{
         const choices=node("div","reader-options");
