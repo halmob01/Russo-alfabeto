@@ -2,6 +2,7 @@
 import fs from "node:fs";
 import {fileURLToPath} from "node:url";
 import {raw,words,phrases,letterAudioText} from "../src/data.mjs";
+import {cards} from "../src/reader-data.mjs";
 
 const keyOf=s=>String(s).trim().replace(/\s+/g," ").toLocaleUpperCase("ru-RU");
 export function buildInventory(){
@@ -20,6 +21,10 @@ export function buildInventory(){
     add(word[0],word[0]==="СССР"?"эс эс эс эр":word[0].toLocaleLowerCase("ru-RU"),"word");
   }
   for(const phrase of phrases)add(phrase.ru,phrase.ru,"phrase");
+  for(const card of cards){
+    for(const sentence of card.sentences)add(sentence.ru,sentence.ru,"reader");
+    add(card.original.ru,card.original.ru,"authentic");
+  }
   return {version:1,voice:"ru_RU-denis-medium",entries};
 }
 

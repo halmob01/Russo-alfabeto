@@ -8,6 +8,7 @@
 - **Quiz** di riconoscimento delle lettere.
 - **16 parole** con traslitterazione, significato e audio.
 - **13 frasi quotidiane** in 4 gruppi: presentarsi, lavoro, animali, lettura.
+- **Lettura pilota**: quattro frasi russe graduate sul nome «Искра», glosse al tocco, traduzioni opzionali, esercizi diversi e una citazione autentica finale.
 - Per ogni frase: **riordina le parole** oppure **scrivi in cirillico**, con tastiera virtuale, controllo risposta, ascolto e spiegazione.
 - Progressi salvati localmente nel browser. Nessun account o servizio AI.
 
@@ -39,12 +40,21 @@ La voce principale è Piper `ru_RU-denis-medium`, con MP3 generati durante il de
 
 ## Voce russa neurale (Piper)
 
-La voce `ru_RU-denis-medium` è generata da GitHub Actions in file MP3 statici: **33 nomi delle lettere**, **16 parole** e **13 frasi**. Il modello non viene scaricato sul telefono; la sintesi non richiede chiavi API o costi per ascolto. `src/data.mjs` è la fonte unica per testo e inventario, così aggiungere una frase aggiorna automaticamente la banca audio. `src/audio-player.mjs` legge `audio/generated/manifest.json` e ricorre al TTS russo del dispositivo se un MP3 manca o non si riproduce. Le lettere sono pronunciate con il loro **nome russo**, non come fonemi isolati.
+La voce `ru_RU-denis-medium` è generata da GitHub Actions in file MP3 statici: **33 nomi delle lettere**, **16 parole**, **13 frasi** e le frasi della **scheda di lettura pilota**. Il modello non viene scaricato sul telefono; la sintesi non richiede chiavi API o costi per ascolto. `src/data.mjs` è la fonte unica per testo e inventario, così aggiungere una frase aggiorna automaticamente la banca audio. `src/audio-player.mjs` legge `audio/generated/manifest.json` e ricorre al TTS russo del dispositivo se un MP3 manca o non si riproduce. Le lettere sono pronunciate con il loro **nome russo**, non come fonemi isolati.
 
-La pipeline `.github/workflows/pages.yml` verifica test, modello scaricato (SHA-256), integrità di 62 MP3 e manifest prima della pubblicazione. Apri **Settings → Pages → Source: GitHub Actions** e verifica che il workflow sulla branch `main` sia riuscito. L'indirizzo del sito non cambia. Durante la prima visita i file audio vengono scaricati alla pressione di Ascolta: **funzionamento offline non garantito**.
+La pipeline `.github/workflows/pages.yml` verifica test, modello scaricato (SHA-256), corrispondenza fra inventario, MP3 e manifest prima della pubblicazione. Apri **Settings → Pages → Source: GitHub Actions** e verifica che il workflow sulla branch `main` sia riuscito. L'indirizzo del sito non cambia. Durante la prima visita i file audio vengono scaricati alla pressione di Ascolta: **funzionamento offline non garantito**.
 
 Il controllo del numero di file non certifica la correttezza della pronuncia: per uso didattico ascoltare e revisionare le 33 lettere e un campione di parole/frasi, in particolare gli accenti, i nomi propri e l'acronimo СССР. Per cambiare voce occorre rigenerare tutti i file e aggiornare la voce attesa nel manifest e nel lettore.
 
 **Fonti e licenze:** modello [rhasspy/piper-voices — denis medium](https://huggingface.co/rhasspy/piper-voices/tree/main/ru/ru_RU/denis/medium); [MODEL_CARD](https://huggingface.co/rhasspy/piper-voices/blob/main/ru/ru_RU/denis/medium/MODEL_CARD) (dataset dichiarato CC0, modello derivato da lessac). Le condizioni relative ai pesi derivati vanno considerate separatamente per riusi commerciali. La dipendenza Piper è eseguita solo durante la build.
 
 Test locali: `node --test tests/*.test.mjs`, quindi `node scripts/audio-inventory.mjs`. La produzione dei file richiede Piper, il modello ONNX e FFmpeg.
+
+## P1 — Lettore-pilota (in sviluppo)
+
+Nella scheda **Lettura** le parole annotate sono toccabili: mostrano il significato contestuale e il lemma. Le quattro frasi vengono lette sullo schermo, eventualmente ascoltate mediante Piper, con traduzioni nascoste inizialmente. Seguono tre esercizi (comprensione, completamento scritto, riconoscimento in un nuovo contesto) e un frammento autentico non graduato.
+
+I contenuti sono in `src/reader-data.mjs`; la UI in `src/reader-ui.mjs` e i progressi versionati in `src/reader-progress.mjs`. `scripts/audio-inventory.mjs` include automaticamente i nuovi testi e il frammento nel catalogo Piper; il numero di MP3 viene verificato rispetto all'inventario, non fissato a 62. **I progressi preesistenti** `russo-alphabet-done` e `russo-phrases-done` non vengono modificati.
+
+Lo stato `da_verificare` sui nuovi lemmi segnala che la correttezza linguistica e la fonetica di Piper richiedono **revisione umana**, indipendentemente dal successo dei test. Anche l'esperienza su Safari iOS reale rimane un criterio di accettazione prima del merge della PR P1. Questo incremento non introduce un algoritmo di ripetizione dilazionata o indicatori di padronanza.
+
