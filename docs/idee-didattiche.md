@@ -1,6 +1,6 @@
 # ISKRA: idee didattiche e piano di lavoro
 
-Stato: bozza di brainstorming, 28 ottobre 2026. Documento di sola progettazione: nessuna modifica al codice.
+Stato: documento di indirizzo, aggiornato il 3 novembre 2026. **Le proposte del 28 ottobre restano come brainstorming storico; per le decisioni implementative prevalgono la revisione del 29 ottobre e la sezione «Decisioni operative» in fondo.** Nessuna modifica al codice in questa PR.
 
 ## Obiettivo
 
@@ -228,7 +228,11 @@ I progressi (schede fatte, parole incontrate, errori) restano in `localStorage`.
 - Accenti automatici: rimandati.
 - Corpus nazionale della lingua russa: non verificato né previsto.
 
-## Piano di lavoro e dimensioni
+## Piano di lavoro iniziale (superato dalla revisione del 29 ottobre)
+
+> Storico: le tre grandi PR e la sequenza iniziale non sono più il piano attivo. Per lo sviluppo usare P1–P3 nella revisione finale e nelle Decisioni operative.
+
+### Dimensioni e ipotesi iniziali
 
 L'app oggi è un solo `index.html` (circa 22 KB) più `src/data.mjs`, senza build né dipendenze. Non è un progetto grande. Il costo maggiore non è il codice ma **scrivere i contenuti** (schede ed esercizi). Non stimo ore.
 
@@ -241,7 +245,7 @@ L'app oggi è un solo `index.html` (circa 22 KB) più `src/data.mjs`, senza buil
 
 In tutto **3 PR di codice più quella documentale**. Le fasi 1 e 2 si possono unire se si preferisce una sola PR più grande.
 
-## Domande aperte
+## Domande aperte iniziali (da risolvere nel pilota)
 
 - Le dieci schede proposte vanno bene o se ne cambiano alcune (altri autori da aggiungere?)?
 - Quante unità di alfabeto? Il quiz sui suoni resta come un tipo tra gli altri?
@@ -353,3 +357,30 @@ La fase 1 proposta sopra accorpa home, alfabeto, nuove attività e conversione d
 - **App statica, senza AI runtime né account**; non introdurre infrastruttura sproporzionata rispetto al corpus.
 
 **Decisione proposta:** usare questi punti come **checklist di revisione architetturale** prima di iniziare P1, non come una nuova lista di funzionalità da costruire tutte immediatamente. Il criterio prevalente resta la capacità di passare, gradualmente, da frasi graduate alla comprensione autonoma di frammenti russi autentici.
+
+---
+
+## Decisioni operative dopo review — 3 novembre 2026
+
+**Fonte di verità per lo sviluppo:** la sequenza **P1 → P2 → P3** descritta nella revisione del 29 ottobre sostituisce il piano originario delle fasi 1–3. La **prima PR di codice è P1 (lettore pilota)**, non la nuova home. Questa sezione prevale quando una proposta precedente è in conflitto.
+
+### Vincoli e contratto di P1
+
+- **Nessun restyling, framework, server o sblocco.** Integrare una scheda pilota `Iskra / Искра` accanto alle quattro sezioni correnti. Le altre schede e il nuovo percorso home saranno P2.
+- **Curricolo esplicito:** 3–6 frasi graduate, 3–5 lemmi nuovi *per scheda* (il pilota può utilizzare anche parole già note); un fenomeno sintattico/grammaticale insegnato, riutilizzato e verificato con attività di comprensione. La citazione «Из искры возгорится пламя» è **frase autentica finale**, da spiegare, non frase iniziale non graduata. Fonte e attribuzione: verso di Aleksandr Odoevskij nella risposta poetica a Puškin, poi epigrafe del giornale Iskra. Controllare i dettagli editoriali prima della pubblicazione.
+- **Schema dati:** `lexicon` contiene lemmi con ID stabili; `cards` contiene ID stabili di scheda, frasi, token/occorrenze, forma di superficie, `lemmaId`, glossa contestuale, opzionale nota morfologica/accento, traduzione, prerequisiti, obiettivi, esercizi e frammento originale. Token e intervalli devono ricostruire esattamente il testo mostrato (incluse spaziature e punteggiatura). Nessuna tokenizzazione ingenua via `split(" ")` per il lettore.
+- **Audio Piper:** l'inventario è calcolato dagli stessi dati usati dal lettore; includere le nuove frasi senza duplicarle in uno script. La forma mostrata e gli eventuali accenti tipografici non devono cambiare arbitrariamente la *chiave audio canonica*; se testo visualizzato, testo pronunciato e chiave differiscono, dichiararli esplicitamente. Le clip di Piper sono sintetizzate nel workflow di build. Mantenere `ru_RU-denis-medium`, manifest attuale e fallback Web Speech API. Eliminare l'asserzione rigida di 62 clip dal workflow e dai test quando si amplia il corpus; verificare invece l'uguaglianza inventario/manifest e la copertura per tipo.
+- **Attività e valutazione:** almeno tre esercizi distinti (comprensione, completamento, riconoscimento in nuovo contesto). Ogni esercizio definisce forma accettata e varianti. Non normalizzare indiscriminatamente `ё`→`е` (es. `всё` vs `все`); accettare alternative soltanto quando linguisticamente compatibili. Per l'ordine libero delle parole, le soluzioni ammesse sono esplicite. Non usare il solo numero di aperture o tocchi come indice di padronanza.
+- **Progressi:** salvare localmente eventi minimi con versione dello schema, ID stabili di scheda/esercizio/lemma, correttezza e presenza di aiuti. Rispettare e preservare le chiavi `russo-alphabet-done` e `russo-phrases-done` già esistenti; un eventuale passaggio dagli indici numerici a ID deve avvenire con migrazione provata. La distinzione «incontrata», «con aiuto», «senza aiuto» non equivale a un punteggio di competenza globale.
+- **Test e controllo umano:** validare ID/riferimenti, ricostruzione dei testi, unicità delle chiavi audio, correttezza delle risposte e sopravvivenza dei progressi. CI verde su GitHub Actions, riproduzione su Safari iOS reale, revisione umana di russo/accénti/audio e verifica storica della citazione. Il test automatico non certifica correttezza linguistica.
+- **Confini di P1:** niente indicatore 95%, algoritmi SRS, dizionario morfologico, accenti automatici, dieci biografie, nuova home o esercizi di ascolto. P2 aggiunge alfabeto strutturato e percorsi; P3 sperimenta funzioni avanzate su pochissime schede.
+
+### Accettazione P1
+
+1. Il lettore visualizza la scheda e glosse al tocco, permette mostra/nascondi traduzione e ritorno al testo su iPhone.
+2. Tre tipi di esercizio producono feedback specifico, controllando le varianti ammesse e distinguendo le risposte con e senza aiuto.
+3. Ripetere dieci volte una scheda non fa crescere artificialmente il numero di parole sicure.
+4. Ogni nuova frase parlata è presente nel manifest Piper dopo la build; il fallback funziona quando manca il MP3.
+5. Le quattro sezioni precedenti, i salvataggi locali e la pubblicazione Pages rimangono funzionanti.
+
+**Decisioni ancora aperte, da non inventare automaticamente:** verifica editoriale finale del testo russo e dell'accentazione; scelta definitiva delle unità alfabetiche (33 lettere in 5 gruppi + ripasso oggi, incompatibile con 6×3–5 nuove lettere); eventuale backup dei progressi. Gli esercizi attuali di traduzione dall'italiano possono essere riutilizzati, ma non vanno confusi con prove di comprensione del russo.
