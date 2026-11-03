@@ -63,14 +63,6 @@ export function createReaderView({root,speak,storage=localStorage}){
         token.setAttribute("aria-expanded",String(ui.gloss===key));
         token.setAttribute("aria-label","Significato di "+part.text);
         line.append(token);
-        if(ui.gloss===key){
-          // The gloss follows the line so it remains readable on narrow mobile screens.
-          const gloss=node("div","reader-gloss");
-          const lemma=lexicon[part.lemmaId];
-          gloss.textContent=part.text+" → "+part.gloss+" · base: "+lemma.lemma+
-            (part.note?" · "+part.note:"");
-          item.dataset.gloss=gloss.textContent;
-        }
       });
       item.append(line);
       const selected=sentence.parts.find((p,i)=>ui.gloss===sentence.id+":"+i&&p.lemmaId);
@@ -93,6 +85,12 @@ export function createReaderView({root,speak,storage=localStorage}){
     const exercises=node("section","reader-exercises");
     exercises.append(node("h3",null,"Metti alla prova la lettura"));
     exercises.append(node("p","muted","Tre attività diverse. Gli aiuti vengono registrati; puoi riprovare senza perdere il testo."));
+    exercises.append(button("Inizia una nuova prova senza suggerimenti",()=>{
+      // Reading support is for learning. A fresh attempt records later recall separately.
+      ui.showTranslations=false;ui.gloss=null;ui.helpUsed=false;
+      ui.hints.clear();ui.results={};ui.drafts={};
+      render();
+    },"btn secondary"));
     card.exercises.forEach((ex,i)=>{
       const item=node("div","reader-exercise");
       item.append(node("div","eyebrow","Attività "+(i+1)+" / "+card.exercises.length));
